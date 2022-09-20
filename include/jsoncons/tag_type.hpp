@@ -17,6 +17,11 @@ struct null_type
     explicit null_type() = default; 
 };
 
+struct half_arg_t
+{
+    explicit half_arg_t() = default; 
+};
+
 constexpr half_arg_t half_arg{};
 
 struct json_array_arg_t
