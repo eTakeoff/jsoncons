@@ -45,11 +45,11 @@ class basic_msgpack_parser : public ser_context
 {
     using char_type = char;
     using char_traits_type = std::char_traits<char>;
-    using temp_allocator_type = Allocator;
-    using char_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<char_type>;                  
-    using byte_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<uint8_t>;                  
-    using int64_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<int64_t>;                  
-    using parse_state_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<parse_state>;                         
+    using allocator_type = Allocator;
+    using char_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<char_type>;                  
+    using byte_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<uint8_t>;                  
+    using int64_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<int64_t>;                  
+    using parse_state_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<parse_state>;                         
 
     static constexpr int64_t nanos_in_second = 1000000000;
 

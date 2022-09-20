@@ -81,13 +81,13 @@ namespace bson {
     template<class T, class Container, class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_bson(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_bson(std::allocator_arg_t, const Allocator& alloc,
                 const T& j, 
                 Container& v, 
                 const bson_encode_options& options = bson_encode_options())
     {
         using char_type = typename T::char_type;
-        basic_bson_encoder<jsoncons::bytes_sink<Container>,Allocator> encoder(v, options, temp_alloc);
+        basic_bson_encoder<jsoncons::bytes_sink<Container>,Allocator> encoder(v, options, alloc);
         auto adaptor = make_json_visitor_adaptor<basic_json_visitor<char_type>>(encoder);
         j.dump(adaptor);
     }
@@ -95,12 +95,12 @@ namespace bson {
     template<class T, class Container, class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_bson(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_bson(std::allocator_arg_t, const Allocator& alloc,
                 const T& val, 
                 Container& v, 
                 const bson_encode_options& options = bson_encode_options())
     {
-        basic_bson_encoder<jsoncons::bytes_sink<Container>,Allocator> encoder(v, options, temp_alloc);
+        basic_bson_encoder<jsoncons::bytes_sink<Container>,Allocator> encoder(v, options, alloc);
         std::error_code ec;
         encode_traits<T,char>::encode(val, encoder, json(), ec);
         if (ec)
@@ -111,25 +111,25 @@ namespace bson {
 
     template<class T,class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,void>::type 
-    encode_bson(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_bson(std::allocator_arg_t, const Allocator& alloc,
                 const T& j, 
                 std::ostream& os, 
                 const bson_encode_options& options = bson_encode_options())
     {
         using char_type = typename T::char_type;
-        basic_bson_encoder<jsoncons::binary_stream_sink,Allocator> encoder(os, options, temp_alloc);
+        basic_bson_encoder<jsoncons::binary_stream_sink,Allocator> encoder(os, options, alloc);
         auto adaptor = make_json_visitor_adaptor<basic_json_visitor<char_type>>(encoder);
         j.dump(adaptor);
     }
 
     template<class T,class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,void>::type 
-    encode_bson(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_bson(std::allocator_arg_t, const Allocator& alloc,
                 const T& val, 
                 std::ostream& os, 
                 const bson_encode_options& options = bson_encode_options())
     {
-        basic_bson_encoder<jsoncons::binary_stream_sink,Allocator> encoder(os, options, temp_alloc);
+        basic_bson_encoder<jsoncons::binary_stream_sink,Allocator> encoder(os, options, alloc);
         std::error_code ec;
         encode_traits<T,char>::encode(val, encoder, json(), ec);
         if (ec)

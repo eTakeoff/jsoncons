@@ -124,18 +124,18 @@ namespace csv {
 
     // With leading allocator parameter
 
-    template <class T,class Source,class TempAllocator>
+    template <class T,class Source,class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_sequence_of<Source,typename T::char_type>::value,T>::type 
-    decode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    decode_csv(std::allocator_arg_t, const Allocator& alloc,
                const Source& s, 
                const basic_csv_decode_options<typename Source::value_type>& options = basic_csv_decode_options<typename Source::value_type>())
     {
         using char_type = typename Source::value_type;
 
-        json_decoder<T> decoder(temp_alloc);
+        json_decoder<T> decoder(alloc);
 
-        basic_csv_reader<char_type,jsoncons::string_source<char_type>,TempAllocator> reader(s,decoder,options,temp_alloc);
+        basic_csv_reader<char_type,jsoncons::string_source<char_type>,Allocator> reader(s,decoder,options,alloc);
         reader.read();
         if (!decoder.is_valid())
         {
@@ -144,17 +144,17 @@ namespace csv {
         return decoder.get_result();
     }
 
-    template <class T,class Source,class TempAllocator>
+    template <class T,class Source,class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_char_sequence<Source>::value,T>::type 
-    decode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    decode_csv(std::allocator_arg_t, const Allocator& alloc,
                const Source& s, 
                const basic_csv_decode_options<typename Source::value_type>& options = basic_csv_decode_options<typename Source::value_type>())
     {
         using char_type = typename Source::value_type;
 
-        basic_csv_cursor<char_type,stream_source<char_type>,TempAllocator> cursor(s, options, temp_alloc);
-        json_decoder<basic_json<char_type,sorted_policy,TempAllocator>> decoder(temp_alloc);
+        basic_csv_cursor<char_type,stream_source<char_type>,Allocator> cursor(s, options, alloc);
+        json_decoder<basic_json<char_type,sorted_policy,Allocator>> decoder(alloc);
 
         std::error_code ec;
         T val = decode_traits<T,char_type>::decode(cursor, decoder, ec);
@@ -165,17 +165,17 @@ namespace csv {
         return val;
     }
 
-    template <class T,class CharT,class TempAllocator>
+    template <class T,class CharT,class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,T>::type 
-    decode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    decode_csv(std::allocator_arg_t, const Allocator& alloc,
                std::basic_istream<CharT>& is, 
                const basic_csv_decode_options<CharT>& options = basic_csv_decode_options<CharT>())
     {
         using char_type = CharT;
 
-        json_decoder<T> decoder(temp_alloc);
+        json_decoder<T> decoder(alloc);
 
-        basic_csv_reader<char_type,jsoncons::string_source<char_type>,TempAllocator> reader(is,decoder,options,temp_alloc);
+        basic_csv_reader<char_type,jsoncons::string_source<char_type>,Allocator> reader(is,decoder,options,alloc);
         reader.read();
         if (!decoder.is_valid())
         {
@@ -184,14 +184,14 @@ namespace csv {
         return decoder.get_result();
     }
 
-    template <class T,class CharT,class TempAllocator>
+    template <class T,class CharT,class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,T>::type 
-    decode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    decode_csv(std::allocator_arg_t, const Allocator& alloc,
                std::basic_istream<CharT>& is, 
                const basic_csv_decode_options<CharT>& options = basic_csv_decode_options<CharT>())
     {
-        basic_csv_cursor<CharT,stream_source<CharT>,TempAllocator> cursor(is, options, temp_alloc);
-        json_decoder<basic_json<CharT,sorted_policy,TempAllocator>> decoder(temp_alloc);
+        basic_csv_cursor<CharT,stream_source<CharT>,Allocator> cursor(is, options, alloc);
+        json_decoder<basic_json<CharT,sorted_policy,Allocator>> decoder(alloc);
 
         std::error_code ec;
         T val = decode_traits<T,CharT>::decode(cursor, decoder, ec);

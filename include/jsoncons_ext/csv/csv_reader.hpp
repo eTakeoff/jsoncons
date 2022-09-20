@@ -39,8 +39,8 @@ namespace jsoncons { namespace csv {
             bool array_begun_;
         };
         using char_type = CharT;
-        using temp_allocator_type = Allocator;
-        typedef typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<CharT> char_allocator_type;
+        using allocator_type = Allocator;
+        typedef typename std::allocator_traits<allocator_type>:: template rebind_alloc<CharT> char_allocator_type;
 
         basic_csv_reader(const basic_csv_reader&) = delete; 
         basic_csv_reader& operator = (const basic_csv_reader&) = delete; 
@@ -182,8 +182,8 @@ namespace jsoncons { namespace csv {
             bool array_begun_;
         };
         using char_type = CharT;
-        using temp_allocator_type = Allocator;
-        typedef typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<CharT> char_allocator_type;
+        using allocator_type = Allocator;
+        typedef typename std::allocator_traits<allocator_type>:: template rebind_alloc<CharT> char_allocator_type;
 
         legacy_basic_csv_reader(const legacy_basic_csv_reader&) = delete; 
         legacy_basic_csv_reader& operator = (const legacy_basic_csv_reader&) = delete; 

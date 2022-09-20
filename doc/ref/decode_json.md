@@ -33,7 +33,7 @@ Type 'T' must be an instantiation of [basic_json](../basic_json.md)
 or support [json_type_traits](../json_type_traits.md).
 
 Functions (1)-(3) perform encodings using the default json type `basic_json<CharT>`.
-Functions (4)-(5) are the same except `temp_alloc` is used to allocate temporary work areas.
+Functions (4)-(5) are the same except `alloc` is used to allocate temporary work areas.
 
 #### Exceptions
 

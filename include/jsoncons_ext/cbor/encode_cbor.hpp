@@ -84,29 +84,29 @@ namespace cbor {
 
     // to bytes 
 
-    template<class T, class Container, class TempAllocator>
+    template<class T, class Container, class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const Allocator& alloc,
                 const T& j, 
                 Container& v, 
                 const cbor_encode_options& options = cbor_encode_options())
     {
         using char_type = typename T::char_type;
-        basic_cbor_encoder<bytes_sink<Container>,TempAllocator> encoder(v, options, temp_alloc);
+        basic_cbor_encoder<bytes_sink<Container>,Allocator> encoder(v, options, alloc);
         auto adaptor = make_json_visitor_adaptor<basic_json_visitor<char_type>>(encoder);
         j.dump(adaptor);
     }
 
-    template<class T, class Container, class TempAllocator>
+    template<class T, class Container, class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const Allocator& alloc,
                 const T& val, 
                 Container& v, 
                 const cbor_encode_options& options = cbor_encode_options())
     {
-        basic_cbor_encoder<jsoncons::bytes_sink<Container>,TempAllocator> encoder(v, options, temp_alloc);
+        basic_cbor_encoder<jsoncons::bytes_sink<Container>,Allocator> encoder(v, options, alloc);
         std::error_code ec;
         encode_traits<T,char>::encode(val, encoder, json(), ec);
         if (ec)
@@ -117,28 +117,28 @@ namespace cbor {
 
     // stream
 
-    template<class T,class TempAllocator>
+    template<class T,class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,void>::type 
-    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const Allocator& alloc,
                 const T& j, 
                 std::ostream& os, 
                 const cbor_encode_options& options = cbor_encode_options())
     {
         using char_type = typename T::char_type;
-        basic_cbor_encoder<binary_stream_sink,TempAllocator> encoder(os, options, temp_alloc);
+        basic_cbor_encoder<binary_stream_sink,Allocator> encoder(os, options, alloc);
         auto adaptor = make_json_visitor_adaptor<basic_json_visitor<char_type>>(encoder);
         j.dump(adaptor);
     }
 
-    template<class T,class TempAllocator>
+    template<class T,class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,void>::type 
-    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const Allocator& alloc,
                 const T& val, 
                 std::ostream& os, 
                 const cbor_encode_options& options = cbor_encode_options())
     {
         std::error_code ec;
-        encode_cbor(std::allocator_arg, temp_alloc, val, os, options, ec);
+        encode_cbor(std::allocator_arg, alloc, val, os, options, ec);
         if (ec)
         {
             JSONCONS_THROW(ser_error(ec));

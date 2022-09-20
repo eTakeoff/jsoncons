@@ -128,12 +128,12 @@ namespace jsoncons {
     }
 
     template <class T, class Container, class Allocator>
-    void encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    void encode_json(std::allocator_arg_t, const Allocator& alloc,
                      const T& val, 
                      Container& s, 
                      indenting line_indent = indenting::no_indent)
     {
-        encode_json(std::allocator_arg, temp_alloc, val, s, basic_json_encode_options<typename Container::value_type>(), line_indent);
+        encode_json(std::allocator_arg, alloc, val, s, basic_json_encode_options<typename Container::value_type>(), line_indent);
     }
 
 // legacy
@@ -203,7 +203,7 @@ namespace jsoncons {
     template <class T, class Container, class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_char_container<Container>::value>::type
-    encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_json(std::allocator_arg_t, const Allocator& alloc,
                 const T& val,
                 Container& s, 
                 const basic_json_encode_options<typename Container::value_type>& options, 
@@ -212,12 +212,12 @@ namespace jsoncons {
         using char_type = typename Container::value_type;
         if (line_indent == indenting::indent)
         {
-            basic_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, temp_alloc);
+            basic_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, alloc);
             val.dump(encoder);
         }
         else
         {
-            basic_compact_json_encoder<char_type, jsoncons::string_sink<Container>,Allocator> encoder(s, options, temp_alloc);
+            basic_compact_json_encoder<char_type, jsoncons::string_sink<Container>,Allocator> encoder(s, options, alloc);
             val.dump(encoder);
         }
     }
@@ -225,7 +225,7 @@ namespace jsoncons {
     template <class T, class Container, class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_char_container<Container>::value>::type
-    encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_json(std::allocator_arg_t, const Allocator& alloc,
                 const T& val,
                 Container& s,
                 const basic_json_encode_options<typename Container::value_type>& options, 
@@ -234,28 +234,28 @@ namespace jsoncons {
         using char_type = typename Container::value_type;
         if (line_indent == indenting::indent)
         {
-            basic_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, temp_alloc);
-            encode_json(std::allocator_arg, temp_alloc, val, encoder);
+            basic_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, alloc);
+            encode_json(std::allocator_arg, alloc, val, encoder);
         }
         else
         {
-            basic_compact_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, temp_alloc);
-            encode_json(std::allocator_arg, temp_alloc, val, encoder);
+            basic_compact_json_encoder<char_type,jsoncons::string_sink<Container>,Allocator> encoder(s, options, alloc);
+            encode_json(std::allocator_arg, alloc, val, encoder);
         }
     }
 
     template <class T, class CharT, class Allocator>
-    void encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    void encode_json(std::allocator_arg_t, const Allocator& alloc,
                      const T& val, 
                      std::basic_ostream<CharT>& os, 
                      indenting line_indent = indenting::no_indent)
     {
-        encode_json(std::allocator_arg, temp_alloc, val, os, basic_json_encode_options<CharT>(), line_indent);
+        encode_json(std::allocator_arg, alloc, val, os, basic_json_encode_options<CharT>(), line_indent);
     }
 
     template <class T, class CharT, class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value>::type
-    encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_json(std::allocator_arg_t, const Allocator& alloc,
                 const T& val,
                 std::basic_ostream<CharT>& os, 
                 const basic_json_encode_options<CharT>& options, 
@@ -263,19 +263,19 @@ namespace jsoncons {
     {
         if (line_indent == indenting::indent)
         {
-            basic_json_encoder<CharT,jsoncons::stream_sink<CharT>,Allocator> encoder(os, options, temp_alloc);
+            basic_json_encoder<CharT,jsoncons::stream_sink<CharT>,Allocator> encoder(os, options, alloc);
             val.dump(encoder);
         }
         else
         {
-            basic_compact_json_encoder<CharT,jsoncons::stream_sink<CharT>,Allocator> encoder(os, options, temp_alloc);
+            basic_compact_json_encoder<CharT,jsoncons::stream_sink<CharT>,Allocator> encoder(os, options, alloc);
             val.dump(encoder);
         }
     }
 
     template <class T, class CharT, class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value>::type
-    encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_json(std::allocator_arg_t, const Allocator& alloc,
                 const T& val,
                 std::basic_ostream<CharT>& os, 
                 const basic_json_encode_options<CharT>& options, 
@@ -284,23 +284,23 @@ namespace jsoncons {
         if (line_indent == indenting::indent)
         {
             basic_json_encoder<CharT> encoder(os, options);
-            encode_json(std::allocator_arg, temp_alloc, val, encoder);
+            encode_json(std::allocator_arg, alloc, val, encoder);
         }
         else
         {
             basic_compact_json_encoder<CharT> encoder(os, options);
-            encode_json(std::allocator_arg, temp_alloc, val, encoder);
+            encode_json(std::allocator_arg, alloc, val, encoder);
         }
     }
 
     template <class T, class CharT, class Allocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value>::type
-    encode_json(std::allocator_arg_t, const Allocator& temp_alloc,
+    encode_json(std::allocator_arg_t, const Allocator& alloc,
                 const T& val,
                 basic_json_visitor<CharT>& encoder)
     {
         std::error_code ec;
-        basic_json<CharT,sorted_policy,Allocator> proto(temp_alloc);
+        basic_json<CharT,sorted_policy,Allocator> proto(alloc);
         encode_traits<T,CharT>::encode(val, encoder, proto, ec);
         if (ec)
         {

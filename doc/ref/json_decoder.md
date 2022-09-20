@@ -3,7 +3,7 @@
 ```c++
 #include <jsoncons/json_decoder.hpp>
 
-template <class Json,class TempAllocator>
+template <class Json,class Allocator>
 json_decoder
 ```
 
@@ -14,17 +14,17 @@ json_decoder
 Member type                         |Definition
 ------------------------------------|------------------------------
 `result_allocator_type`|Json::allocator_type
-`temp_allocator_type`|TempAllocator
+`allocator_type`|Allocator
 
 #### Constructors
 
-    json_decoder(const temp_allocator_type& temp_alloc); (1)
+    json_decoder(const allocator_type& alloc); (1)
 
     json_decoder(result_allocator_arg_t, const result_allocator_type& result_alloc, 
-                 const temp_allocator_type& temp_alloc); (2)
+                 const allocator_type& alloc); (2)
 
     json_decoder(result_allocator_arg_t, const result_allocator_type& result_alloc, 
-                 const temp_allocator_type& temp_alloc); (3)
+                 const allocator_type& alloc); (3)
 
 #### Member functions
 

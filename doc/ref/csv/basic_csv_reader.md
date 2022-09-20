@@ -6,7 +6,7 @@
 template<
     class CharT,
     class Source=jsoncons::stream_source<CharT>,
-    class TempAllocator=std::allocator<char>>
+    class Allocator=std::allocator<char>>
 class basic_csv_reader 
 ```
 
@@ -37,27 +37,27 @@ source_type                |Source
     template <class Sourceable>
     basic_csv_reader(Sourceable&& source,
                      basic_json_visitor<CharT>& visitor, 
-                     const TempAllocator& alloc = TempAllocator()); (1)
+                     const Allocator& alloc = Allocator()); (1)
 
 
     template <class Sourceable>
     basic_csv_reader(Sourceable&& source,
                      basic_json_visitor<CharT>& visitor,
                      const basic_csv_options<CharT>& options, 
-                     const TempAllocator& alloc = TempAllocator()); (2)
+                     const Allocator& alloc = Allocator()); (2)
 
     template <class Sourceable>
     basic_csv_reader(Sourceable&& source,
                      basic_json_visitor<CharT>& visitor,
                      std::function<bool(csv_errc,const ser_context&)> err_handler, 
-                     const TempAllocator& alloc = TempAllocator()); (3)
+                     const Allocator& alloc = Allocator()); (3)
 
     template <class Sourceable>
     basic_csv_reader(Sourceable&& source,
                      basic_json_visitor<CharT>& visitor,
                      const basic_csv_options<CharT>& options,
                      std::function<bool(csv_errc,const ser_context&)> err_handler, 
-                     const TempAllocator& alloc = TempAllocator()); (4)
+                     const Allocator& alloc = Allocator()); (4)
 
 (1) Constructs a `basic_csv_reader` that reads from a character sequence or stream `source`
 and a [basic_json_visitor](../basic_json_visitor.md) that receives
