@@ -192,7 +192,7 @@ namespace jsoncons {
                 const basic_json_decode_options<CharT>& options = basic_json_decode_options<CharT>())
     {
         basic_json_cursor<CharT,stream_source<CharT>,Allocator> cursor(is, options, default_json_parsing(), temp_alloc);
-        json_decoder<basic_json<CharT,sorted_policy,Allocator>> decoder(result_allocator_arg, temp_alloc,temp_alloc);
+        json_decoder<basic_json<CharT,sorted_policy,Allocator>> decoder(temp_alloc);
 
         std::error_code ec;
         T val = decode_traits<T,CharT>::decode(cursor, decoder, ec);

@@ -17,18 +17,6 @@ struct null_type
     explicit null_type() = default; 
 };
 
-struct result_allocator_arg_t
-{
-    explicit result_allocator_arg_t() = default; 
-};
-
-constexpr result_allocator_arg_t result_allocator_arg{};
-
-struct half_arg_t
-{
-    explicit half_arg_t() = default; 
-};
-
 constexpr half_arg_t half_arg{};
 
 struct json_array_arg_t
