@@ -1,10 +1,10 @@
 #define CATCH_CONFIG_MAIN
 #include <catch/catch.hpp>
-
 #include <jsoncons/config/jsoncons_config.hpp>
 
 TEST_CASE("configuration")
 {
+
     #if defined(__clang__) 
         std::cout << "clang" << "\n";
     #elif defined(__GNUC__)

@@ -13,18 +13,11 @@ json_decoder
 
 Member type                         |Definition
 ------------------------------------|------------------------------
-`result_allocator_type`|Json::allocator_type
 `allocator_type`|Allocator
 
 #### Constructors
 
     json_decoder(const allocator_type& alloc); (1)
-
-    json_decoder(result_allocator_arg_t, const result_allocator_type& result_alloc, 
-                 const allocator_type& alloc); (2)
-
-    json_decoder(result_allocator_arg_t, const result_allocator_type& result_alloc, 
-                 const allocator_type& alloc); (3)
 
 #### Member functions
 

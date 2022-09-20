@@ -76,8 +76,6 @@ namespace bson {
         }
     }
   
-    // with temp_allocator_rag
-
     template<class T, class Container, class Allocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 

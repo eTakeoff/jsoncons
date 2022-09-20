@@ -13,6 +13,8 @@
 #include <type_traits> // std::enable_if
 #include <istream> // std::basic_istream
 #include <jsoncons/json.hpp>
+#include <jsoncons/json_filter.hpp>
+#include <jsoncons/decode_traits.hpp>
 #include <jsoncons/config/jsoncons_config.hpp>
 #include <jsoncons_ext/ubjson/ubjson_reader.hpp>
 #include <jsoncons_ext/ubjson/ubjson_cursor.hpp>

@@ -47,12 +47,13 @@ class basic_ubjson_parser : public ser_context
     using char_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<char_type>;                  
     using byte_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<uint8_t>;                  
     using parse_state_allocator_type = typename std::allocator_traits<allocator_type>:: template rebind_alloc<parse_state>;                         
+    using string_type = std::basic_string<char_type,char_traits_type,char_allocator_type>;
 
     Source source_;
     ubjson_decode_options options_;
     bool more_;
     bool done_;
-    std::basic_string<char,std::char_traits<char>,char_allocator_type> text_buffer_;
+    string_type text_buffer_;
     std::vector<parse_state,parse_state_allocator_type> state_stack_;
     int nesting_depth_;
 public:
@@ -82,7 +83,7 @@ public:
         done_ = false;
         text_buffer_.clear();
         state_stack_.clear();
-        state_stack_.emplace_back(parse_mode::root,0,0);
+        state_stack_.emplace_back(parse_mode::root,uint8_t(0),uint8_t(0));
         nesting_depth_ = 0;
     }
 

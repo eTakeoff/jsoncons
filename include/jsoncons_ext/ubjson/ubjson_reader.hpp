@@ -8,6 +8,7 @@
 #define JSONCONS_UBJSON_UBJSON_READER_HPP
 
 #include <string>
+#include <vector>
 #include <memory>
 #include <utility> // std::move
 #include <jsoncons/json.hpp>
