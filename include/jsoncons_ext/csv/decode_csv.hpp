@@ -154,7 +154,7 @@ namespace csv {
         using char_type = typename Source::value_type;
 
         basic_csv_cursor<char_type,stream_source<char_type>,TempAllocator> cursor(s, options, temp_alloc);
-        json_decoder<basic_json<char_type,sorted_policy,TempAllocator>,TempAllocator> decoder(temp_alloc);
+        json_decoder<basic_json<char_type,sorted_policy,TempAllocator>> decoder(temp_alloc);
 
         std::error_code ec;
         T val = decode_traits<T,char_type>::decode(cursor, decoder, ec);
@@ -191,7 +191,7 @@ namespace csv {
                const basic_csv_decode_options<CharT>& options = basic_csv_decode_options<CharT>())
     {
         basic_csv_cursor<CharT,stream_source<CharT>,TempAllocator> cursor(is, options, temp_alloc);
-        json_decoder<basic_json<CharT,sorted_policy,TempAllocator>,TempAllocator> decoder(temp_alloc);
+        json_decoder<basic_json<CharT,sorted_policy,TempAllocator>> decoder(temp_alloc);
 
         std::error_code ec;
         T val = decode_traits<T,CharT>::decode(cursor, decoder, ec);
