@@ -113,7 +113,7 @@ JSONCONS_DEPRECATED_MSG("Instead, use default_json_parsing") typedef default_jso
 JSONCONS_DEPRECATED_MSG("Instead, use strict_json_parsing") typedef strict_json_parsing strict_parse_error_handler;
 #endif
 
-template <class CharT, class TempAllocator = std::allocator<char>>
+template <class CharT, class Allocator = std::allocator<char>>
 class basic_json_parser : public ser_context
 {
 public:
@@ -130,7 +130,7 @@ private:
         }
     };
 
-    using temp_allocator_type = TempAllocator;
+    using temp_allocator_type = Allocator;
     using char_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<CharT>;
     using parse_state_allocator_type = typename std::allocator_traits<temp_allocator_type>:: template rebind_alloc<json_parse_state>;
 
@@ -166,26 +166,26 @@ private:
     basic_json_parser& operator=(const basic_json_parser&) = delete;
 
 public:
-    basic_json_parser(const TempAllocator& alloc = TempAllocator())
+    basic_json_parser(const Allocator& alloc = Allocator())
         : basic_json_parser(basic_json_decode_options<char_type>(), default_json_parsing(), alloc)
     {
     }
 
     basic_json_parser(std::function<bool(json_errc,const ser_context&)> err_handler, 
-                      const TempAllocator& alloc = TempAllocator())
+                      const Allocator& alloc = Allocator())
         : basic_json_parser(basic_json_decode_options<char_type>(), err_handler, alloc)
     {
     }
 
     basic_json_parser(const basic_json_decode_options<char_type>& options, 
-                      const TempAllocator& alloc = TempAllocator())
+                      const Allocator& alloc = Allocator())
         : basic_json_parser(options, default_json_parsing(), alloc)
     {
     }
 
     basic_json_parser(const basic_json_decode_options<char_type>& options,
                       std::function<bool(json_errc,const ser_context&)> err_handler, 
-                      const TempAllocator& alloc = TempAllocator())
+                      const Allocator& alloc = Allocator())
        : options_(options),
          err_handler_(err_handler),
          initial_stack_capacity_(default_initial_stack_capacity_),

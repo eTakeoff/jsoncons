@@ -62,12 +62,12 @@ namespace csv {
         }
     }
 
-    // with temp_allocator_arg_t
+    // with std::allocator_arg_t
 
     template <class T, class Container, class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_char_container<Container>::value>::type 
-    encode_csv(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
                const T& j, Container& s, const basic_csv_encode_options<typename Container::value_type>& options = basic_csv_encode_options<typename Container::value_type>())
     {
         using char_type = typename Container::value_type;
@@ -78,7 +78,7 @@ namespace csv {
     template <class T, class Container, class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_char_container<Container>::value>::type 
-    encode_csv(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
                const T& val, Container& s, const basic_csv_encode_options<typename Container::value_type>& options = basic_csv_encode_options<typename Container::value_type>())
     {
         using char_type = typename Container::value_type;
@@ -93,7 +93,7 @@ namespace csv {
 
     template <class T, class CharT, class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,void>::type 
-    encode_csv(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
                const T& j, std::basic_ostream<CharT>& os, const basic_csv_encode_options<CharT>& options = basic_csv_encode_options<CharT>())
     {
         using char_type = CharT;
@@ -103,7 +103,7 @@ namespace csv {
 
     template <class T, class CharT, class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,void>::type 
-    encode_csv(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_csv(std::allocator_arg_t, const TempAllocator& temp_alloc,
                const T& val, std::basic_ostream<CharT>& os, const basic_csv_encode_options<CharT>& options = basic_csv_encode_options<CharT>())
     {
         using char_type = CharT;

@@ -2881,7 +2881,7 @@ namespace jsoncons {
 
     #if !defined(JSONCONS_NO_DEPRECATED)
 
-        JSONCONS_DEPRECATED_MSG("Instead, use basic_json(json_object_t,semantic_tag,const Allocator&)")
+        JSONCONS_DEPRECATED_MSG("Instead, use basic_json(json_object_arg,semantic_tag,const Allocator&)")
         explicit basic_json(const Allocator& alloc, semantic_tag tag = semantic_tag::none) 
         {
             construct<object_storage>(object(alloc), tag);

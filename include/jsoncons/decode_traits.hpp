@@ -26,9 +26,9 @@ namespace jsoncons {
     template <class T, class CharT, class Enable = void>
     struct decode_traits
     {
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>& decoder, 
+                        json_decoder<Json>& decoder, 
                         std::error_code& ec)
         {
             decoder.reset();
@@ -54,9 +54,9 @@ namespace jsoncons {
         typename std::enable_if<type_traits::is_primitive<T>::value
     >::type>
     {
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>&, 
+                        json_decoder<Json>&, 
                         std::error_code& ec)
         {
             T v = cursor.current().template get<T>(ec);
@@ -72,9 +72,9 @@ namespace jsoncons {
                                 std::is_same<typename T::value_type,CharT>::value
     >::type>
     {
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>&, 
+                        json_decoder<Json>&, 
                         std::error_code& ec)
         {
             T v = cursor.current().template get<T>(ec);
@@ -88,9 +88,9 @@ namespace jsoncons {
                                 !std::is_same<typename T::value_type,CharT>::value
     >::type>
     {
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>&, 
+                        json_decoder<Json>&, 
                         std::error_code& ec)
         {
             auto val = cursor.current().template get<std::basic_string<CharT>>(ec);
@@ -108,9 +108,9 @@ namespace jsoncons {
     template <class T1, class T2, class CharT>
     struct decode_traits<std::pair<T1, T2>, CharT>
     {
-        template <class Json, class TempAllocator>
+        template <class Json>
         static std::pair<T1, T2> decode(basic_staj_cursor<CharT>& cursor,
-                                        json_decoder<Json, TempAllocator>& decoder,
+                                        json_decoder<Json>& decoder,
                                         std::error_code& ec)
         {
             using value_type = std::pair<T1, T2>;
@@ -158,9 +158,9 @@ namespace jsoncons {
     {
         using value_type = typename T::value_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>& decoder, 
+                        json_decoder<Json>& decoder, 
                         std::error_code& ec)
         {
             T v;
@@ -317,9 +317,9 @@ namespace jsoncons {
     {
         using value_type = typename T::value_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>&, 
+                        json_decoder<Json>&, 
                         std::error_code& ec)
         {
             cursor.array_expected(ec);
@@ -391,9 +391,9 @@ namespace jsoncons {
     {
         using value_type = typename T::value_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>&, 
+                        json_decoder<Json>&, 
                         std::error_code& ec)
         {
             cursor.array_expected(ec);
@@ -443,9 +443,9 @@ namespace jsoncons {
     {
         using value_type = typename T::value_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>& decoder, 
+                        json_decoder<Json>& decoder, 
                         std::error_code& ec)
         {
             T v;
@@ -492,9 +492,9 @@ namespace jsoncons {
     {
         using value_type = typename std::array<T,N>::value_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static std::array<T, N> decode(basic_staj_cursor<CharT>& cursor, 
-                                       json_decoder<Json,TempAllocator>& decoder, 
+                                       json_decoder<Json>& decoder, 
                                        std::error_code& ec)
         {
             std::array<T,N> v;
@@ -535,9 +535,9 @@ namespace jsoncons {
         using value_type = typename T::value_type;
         using key_type = typename T::key_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>& decoder, 
+                        json_decoder<Json>& decoder, 
                         std::error_code& ec)
         {
             T val;
@@ -592,9 +592,9 @@ namespace jsoncons {
         using value_type = typename T::value_type;
         using key_type = typename T::key_type;
 
-        template <class Json,class TempAllocator>
+        template <class Json>
         static T decode(basic_staj_cursor<CharT>& cursor, 
-                        json_decoder<Json,TempAllocator>& decoder, 
+                        json_decoder<Json>& decoder, 
                         std::error_code& ec)
         {
             T val;

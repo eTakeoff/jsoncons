@@ -80,14 +80,14 @@ namespace cbor {
         }
     }
 
-    // temp_allocator_arg
+    // std::allocator_arg
 
     // to bytes 
 
     template<class T, class Container, class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_cbor(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
                 const T& j, 
                 Container& v, 
                 const cbor_encode_options& options = cbor_encode_options())
@@ -101,7 +101,7 @@ namespace cbor {
     template<class T, class Container, class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_cbor(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
                 const T& val, 
                 Container& v, 
                 const cbor_encode_options& options = cbor_encode_options())
@@ -119,7 +119,7 @@ namespace cbor {
 
     template<class T,class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,void>::type 
-    encode_cbor(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
                 const T& j, 
                 std::ostream& os, 
                 const cbor_encode_options& options = cbor_encode_options())
@@ -132,13 +132,13 @@ namespace cbor {
 
     template<class T,class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,void>::type 
-    encode_cbor(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_cbor(std::allocator_arg_t, const TempAllocator& temp_alloc,
                 const T& val, 
                 std::ostream& os, 
                 const cbor_encode_options& options = cbor_encode_options())
     {
         std::error_code ec;
-        encode_cbor(temp_allocator_arg, temp_alloc, val, os, options, ec);
+        encode_cbor(std::allocator_arg, temp_alloc, val, os, options, ec);
         if (ec)
         {
             JSONCONS_THROW(ser_error(ec));

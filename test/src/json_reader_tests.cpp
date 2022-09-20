@@ -80,8 +80,7 @@ TEST_CASE("json_reader constructors")
 
         FreelistAllocator<char> my_allocator{1}; 
 
-        json_decoder<my_json,FreelistAllocator<char>> decoder(result_allocator_arg, my_allocator,
-                                                              my_allocator);
+        json_decoder<my_json> decoder(my_allocator);
         basic_json_reader<char,string_source<char>,FreelistAllocator<char>> reader(input, decoder, my_allocator);
         reader.read();
 

@@ -194,7 +194,7 @@ TEST_CASE("convert_vector_test, temp_allocator")
     jsoncons::encode_json(v,s);
 
     auto result = jsoncons::decode_json<std::vector<double>>(
-        temp_allocator_arg, MyAlloc<char>(1), s);
+        std::allocator_arg, MyAlloc<char>(1), s);
 
     REQUIRE(v.size() == result.size());
     for (std::size_t i = 0; i < result.size(); ++i)
@@ -223,7 +223,7 @@ TEST_CASE("convert_map_test, temp_allocator")
     std::string s;
     jsoncons::encode_json(m,s);
     auto result = jsoncons::decode_json<std::map<std::string,double>>(
-        temp_allocator_arg, MyAlloc<char>(1), s);
+        std::allocator_arg, MyAlloc<char>(1), s);
     REQUIRE(result.size() == m.size());
     CHECK(m["a"] == result["a"]);
     CHECK(m["b"] == result["b"]);
@@ -269,7 +269,7 @@ TEST_CASE("convert vector of vector test, temp_allocator")
     std::string s;
     jsoncons::encode_json(v,s);
     auto result = jsoncons::decode_json<std::vector<std::vector<double>>>(
-        temp_allocator_arg, MyAlloc<char>(1), s);
+        std::allocator_arg, MyAlloc<char>(1), s);
     REQUIRE(result.size() == v.size());
     for (const auto& item : result)
     {
@@ -320,7 +320,7 @@ TEST_CASE("convert_tuple_test, temp_allocator")
     std::string s;
     jsoncons::encode_json_pretty(employees, s);
     auto employees2 = jsoncons::decode_json<employee_collection>(
-        temp_allocator_arg, MyAlloc<char>(1), s);
+        std::allocator_arg, MyAlloc<char>(1), s);
     REQUIRE(employees2.size() == employees.size());
     CHECK(employees2 == employees);
 }

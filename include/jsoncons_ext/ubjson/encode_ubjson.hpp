@@ -76,12 +76,12 @@ namespace ubjson {
         }
     }
 
-    // with temp_allocator_arg_t
+    // with std::allocator_arg_t
 
     template<class T, class Container, class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_ubjson(temp_allocator_arg_t, const TempAllocator& temp_alloc,const T& j, 
+    encode_ubjson(std::allocator_arg_t, const TempAllocator& temp_alloc,const T& j, 
                   Container& v, 
                   const ubjson_encode_options& options = ubjson_encode_options())
     {
@@ -94,7 +94,7 @@ namespace ubjson {
     template<class T, class Container, class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value &&
                             type_traits::is_back_insertable_byte_container<Container>::value,void>::type 
-    encode_ubjson(temp_allocator_arg_t, const TempAllocator& temp_alloc,const T& val, 
+    encode_ubjson(std::allocator_arg_t, const TempAllocator& temp_alloc,const T& val, 
                   Container& v, 
                   const ubjson_encode_options& options = ubjson_encode_options())
     {
@@ -109,7 +109,7 @@ namespace ubjson {
 
     template<class T,class TempAllocator>
     typename std::enable_if<type_traits::is_basic_json<T>::value,void>::type 
-    encode_ubjson(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_ubjson(std::allocator_arg_t, const TempAllocator& temp_alloc,
                   const T& j, 
                   std::ostream& os, 
                   const ubjson_encode_options& options = ubjson_encode_options())
@@ -122,7 +122,7 @@ namespace ubjson {
 
     template<class T,class TempAllocator>
     typename std::enable_if<!type_traits::is_basic_json<T>::value,void>::type 
-    encode_ubjson(temp_allocator_arg_t, const TempAllocator& temp_alloc,
+    encode_ubjson(std::allocator_arg_t, const TempAllocator& temp_alloc,
                   const T& val, 
                   std::ostream& os, 
                   const ubjson_encode_options& options = ubjson_encode_options())
