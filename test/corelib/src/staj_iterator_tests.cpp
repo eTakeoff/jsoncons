@@ -101,7 +101,7 @@ TEST_CASE("jtaj_array_view tests")
     }
 }
 
-TEST_CASE("object_iterator test")
+TEST_CASE("object_iterator_type test")
 {
     std::string s = R"(
         {

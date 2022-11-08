@@ -1,17 +1,17 @@
 ### `jsoncons::basic_json::erase`
 
 ```c++
-void erase(const_array_iterator pos);           (1)   (until 0.168.6)
-array_iterator erase(const_array_iterator pos); (1)   (since 0.168.6)
+void erase(const_array_iterator_type pos);           (1)   (until 0.168.6)
+array_iterator_type erase(const_array_iterator_type pos); (1)   (since 0.168.6)
 
-void erase(const_array_iterator first, const_array_iterator last);           (2)   (until 0.168.6)
-array_iterator erase(const_array_iterator first, const_array_iterator last); (2)   (since 0.168.6)
+void erase(const_array_iterator_type first, const_array_iterator_type last);           (2)   (until 0.168.6)
+array_iterator_type erase(const_array_iterator_type first, const_array_iterator_type last); (2)   (since 0.168.6)
 
-void erase(const_object_iterator pos);            (3)   (until 0.168.6)
-object_iterator erase(const_object_iterator pos); (3)   (since 0.168.6)
+void erase(const_object_iterator_type pos);            (3)   (until 0.168.6)
+object_iterator_type erase(const_object_iterator_type pos); (3)   (since 0.168.6)
 
-void erase(const_object_iterator first, const_object_iterator last);            (4)   (until 0.168.6)
-object_iterator erase(const_object_iterator first, const_object_iterator last); (4)   (since 0.168.6)
+void erase(const_object_iterator_type first, const_object_iterator_type last);            (4)   (until 0.168.6)
+object_iterator_type erase(const_object_iterator_type first, const_object_iterator_type last); (4)   (since 0.168.6)
 
 void erase(const string_view_type& name); (5)
 ```

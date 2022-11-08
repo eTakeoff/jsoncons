@@ -16,9 +16,9 @@ class basic_json|`get_semantic_tag()`|<em>&#x2713;</em>|`tag()`
 class basic_json|`is_datetime()`|<em>&#x2713;</em>|`tag() == semantic_tag::datetime`
 class basic_json|`is_epoch_time()`|<em>&#x2713;</em>|`tag() == semantic_tag::timestamp`
 class basic_json|`add(T&&)`|<em>&#x2713;</em>|`push_back(T&&)`
-class basic_json|`add(const_array_iterator, T&&)`|<em>&#x2713;</em>|`insert(const_array_iterator, T&&)`
+class basic_json|`add(const_array_iterator_type, T&&)`|<em>&#x2713;</em>|`insert(const_array_iterator_type, T&&)`
 class basic_json|`set(const string_view_type&, T&&)`|<em>&#x2713;</em>|`insert_or_assign(const string_view_type&, T&&)`
-class basic_json|`set(object_iterator, const string_view_type&, T&&)`|<em>&#x2713;</em>|`insert_or_assign(object_iterator, const string_view_type&, T&&)`
+class basic_json|`set(object_iterator_type, const string_view_type&, T&&)`|<em>&#x2713;</em>|`insert_or_assign(object_iterator_type, const string_view_type&, T&&)`
 class basic_json|`is_integer()`|<em>&#x2713;</em>|`is<int64_t>()`
 class basic_json|`is_uinteger()`|<em>&#x2713;</em>|`is<uint64_t>()`
 class basic_json|`is_ulonglong()`|<em>&#x2713;</em>|`is<unsigned long long>()`
@@ -53,7 +53,7 @@ class basic_json|`get(const string_view_type&, T&&)`|<em>&#x2713;</em>|`get_with
 class basic_json|`get(const string_view_type&)`|<em>&#x2713;</em>|`at(const string_view_type&)`
 class basic_json|`has_key(const string_view_type&)`|<em>&#x2713;</em>|`contains(const string_view_type&)`
 class basic_json|`has_member(const string_view_type&)`|<em>&#x2713;</em>|`contains(const string_view_type&)`
-class basic_json|`remove_range(size_t, size_t)`|<em>&#x2713;</em>|`erase(const_object_iterator, const_object_iterator)`
+class basic_json|`remove_range(size_t, size_t)`|<em>&#x2713;</em>|`erase(const_object_iterator_type, const_object_iterator_type)`
 class basic_json|`remove(const string_view_type&)`|<em>&#x2713;</em>|`erase(const string_view_type& name)`
 class basic_json|`remove_member(const string_view_type&)`|<em>&#x2713;</em>|`erase(const string_view_type& name)`
 class basic_json|`is_empty()`|<em>&#x2713;</em>|`empty()`

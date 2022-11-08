@@ -180,10 +180,10 @@ TEST_CASE("test_empty_object")
     CHECK(a.is_object());
     CHECK(a.is_object());
 
-    json::object_iterator begin = a.object_range().begin();
-    json::object_iterator end = a.object_range().end();
+    json::object_iterator_type begin = a.object_range().begin();
+    json::object_iterator_type end = a.object_range().end();
 
-    for (json::object_iterator it = begin; it != end; ++it)
+    for (json::object_iterator_type it = begin; it != end; ++it)
     {
         CHECK(false);
     }
@@ -201,10 +201,10 @@ TEST_CASE("test_const_empty_object")
     CHECK(b.is_object());
     CHECK(b.is_object());
 
-    json::const_object_iterator begin = b.object_range().begin();
-    json::const_object_iterator end = b.object_range().end();
+    json::const_object_iterator_type begin = b.object_range().begin();
+    json::const_object_iterator_type end = b.object_range().end();
 
-    for (json::const_object_iterator it = begin; it != end; ++it)
+    for (json::const_object_iterator_type it = begin; it != end; ++it)
     {
         CHECK(false);
     }
@@ -501,7 +501,7 @@ TEST_CASE("test_json_object_iterator_1")
     a["name2"] = "value2";
     a["name3"] = "value3";
 
-    json::object_iterator it = a.object_range().begin();
+    json::object_iterator_type it = a.object_range().begin();
     CHECK((*it).key() == "name1");
     CHECK((*it).value() == json("value1"));
     ++it;
@@ -528,7 +528,7 @@ TEST_CASE("test_json_object_iterator_2")
     a["name2"] = "value2";
     a["name3"] = "value3";
 
-    json::const_object_iterator it = a.object_range().begin();
+    json::const_object_iterator_type it = a.object_range().begin();
     CHECK((*it).key() == "name1");
     CHECK((*it).value() == json("value1"));
     ++it;
@@ -556,7 +556,7 @@ TEST_CASE("test_json_object_iterator_3")
     a["name2"] = "value2";
     a["name3"] = "value3";
 
-    json::const_object_iterator it = static_cast<const json&>(a).object_range().begin();
+    json::const_object_iterator_type it = static_cast<const json&>(a).object_range().begin();
     CHECK((it == a.object_range().begin()));
     CHECK_FALSE((it == a.object_range().end()));
     CHECK((*it).key() == "name1");
@@ -639,7 +639,7 @@ TEST_CASE("test_find")
 {
     json obj;
 
-    json::object_iterator it = obj.find("key");
+    json::object_iterator_type it = obj.find("key");
     CHECK((it == obj.object_range().end()));
 
     obj["key1"] = 10;
@@ -647,10 +647,10 @@ TEST_CASE("test_find")
     obj["key3"] = 'c';
     obj["key4"] = "value4";
 
-    json::object_iterator it2 =  obj.find("key");
+    json::object_iterator_type it2 =  obj.find("key");
     CHECK((it2 == obj.object_range().end()));
 
-    json::object_iterator it3 =  obj.find("key4");
+    json::object_iterator_type it3 =  obj.find("key4");
     CHECK_FALSE((it3 == obj.object_range().end()));
     CHECK(std::string("value4") ==it3->value().as<std::string>());
 }
@@ -942,7 +942,7 @@ TEST_CASE("try_emplace tests")
 
     SECTION("try_emplace(iterator hint, const string_view_type& name, Args&&... args)")
     {
-        json::object_iterator it = j.object_range().begin();
+        json::object_iterator_type it = j.object_range().begin();
 
         j.try_emplace(it,"c",3);
 
@@ -1440,7 +1440,7 @@ TEST_CASE("test empty json_object iterator")
     {
         json j;
 
-        json::const_object_iterator it;
+        json::const_object_iterator_type it;
         CHECK(!it.has_value());
 
         it = j.find("Min");

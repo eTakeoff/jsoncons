@@ -44,10 +44,10 @@ Member type                         |Definition
 `string_view_type`|`basic_string_view<char_type>`
 `key_type`|A [ContiguousContainer](https://en.cppreference.com/w/cpp/named_req/ContiguousContainer) to `char_type`
 `key_value_type`|`key_value<key_type,basic_json>`
-`object_iterator`|A [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to [key_value_type](json/key_value.md)
-`const_object_iterator`|A const [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to const [key_value_type](json/key_value.md)
-`array_iterator`|A [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to `basic_json`
-`const_array_iterator`|A const [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to `const basic_json`
+`object_iterator_type`|A [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to [key_value_type](json/key_value.md)
+`const_object_iterator_type`|A const [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to const [key_value_type](json/key_value.md)
+`array_iterator_type`|A [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to `basic_json`
+`const_array_iterator_type`|A const [RandomAccessIterator](http://en.cppreference.com/w/cpp/concept/RandomAccessIterator) to `const basic_json`
 `proxy_type`|proxy<basic_json>. The `proxy_type` class supports conversion to `basic_json&`.
 
 ### Static member functions
@@ -172,8 +172,8 @@ MessagePack ext format family, or a CBOR tag preceeding a byte string.
     json_type type() const
 Returns the [json type](json_type.md) associated with this value
  
-    object_iterator find(const string_view_type& name)
-    const_object_iterator find(const string_view_type& name) const
+    object_iterator_type find(const string_view_type& name)
+    const_object_iterator_type find(const string_view_type& name) const
 Returns an object iterator to a member whose name compares equal to `name`. If there is no such member, returns `object_range.end()`.
 Throws `std::domain_error` if not an object.  
 

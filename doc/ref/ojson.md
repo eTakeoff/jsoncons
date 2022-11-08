@@ -12,7 +12,7 @@ The `ojson` class is an instantiation of the [basic_json](basic_json.md) class t
 
 `ojson` behaves similarly to [json](json.md), with these particularities:
 
-- `ojson`, like `json`, supports object member `insert_or_assign` methods that take an `object_iterator` as the first parameter. But while with `json` that parameter is just a hint that allows optimization, with `ojson` it is the actual location where to insert the member.
+- `ojson`, like `json`, supports object member `insert_or_assign` methods that take an `object_iterator_type` as the first parameter. But while with `json` that parameter is just a hint that allows optimization, with `ojson` it is the actual location where to insert the member.
 
 - In `ojson`, the `insert_or_assign` members that just take a name and a value always insert the member at the end.
 
